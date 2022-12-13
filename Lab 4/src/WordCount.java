@@ -9,15 +9,14 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import sun.print.PathGraphics;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 public class WordCount {
-    public static final String INPUT_PATH = "hdfs://node01:9000/acc/input";
-    public static final String OUTPUT_PATH = "hdfs://node01:9000/acc/output";
+    public static final String INPUT_PATH = "hdfs://node01:9000/wordcount/input";
+    public static final String OUTPUT_PATH = "hdfs://node01:9000/wordcount/output";
 
     public static class MyMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
         @Override
@@ -63,10 +62,9 @@ public class WordCount {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
-        FileInputFormat.addInputPath(job, new Path("hdfs://node01:9000/acc/input"));
-        FileOutputFormat.setOutputPath(job, new Path("hdfs://node01:9000/acc/output"));
+        FileInputFormat.addInputPath(job, new Path("hdfs://node01:9000/wordcount/input"));
+        FileOutputFormat.setOutputPath(job, new Path("hdfs://node01:9000/wordcount/output"));
 
         job.waitForCompletion(true);
     }
 }
-
